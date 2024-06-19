@@ -70,7 +70,7 @@ class NewsPreprocessing:
             if word in tone_dict:
                 news_tone += tone_dict[word][0]
 
-        return news_tone / len(news)
+        return news_tone / len(news) if len(news) != 0 else 0
 
     @classmethod
     def count_news_tone(cls, news_list, tone_dict):
