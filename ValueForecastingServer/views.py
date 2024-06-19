@@ -57,20 +57,20 @@ def get_news(request):
         print(end_date, type(end_date))
         print('--------------------------')
         if DatasetPreprocessing.check_string(start_date) and DatasetPreprocessing.check_string(end_date):
-            if DatasetPreprocessing.check_datediff(start_date, end_date):
+            # if DatasetPreprocessing.check_datediff(start_date, end_date): #отключено на время разработки
                 file_name = NewsPreprocessing.run_preprocessing(start_date, end_date)
                 news_list = News_list()
                 news_list.name = file_name
                 news_list.start_date = start_date
                 news_list.end_date = end_date
                 news_list.save()
-                return HttpResponse(request, content=f'новости с {start_date} по {end_date} успешно собраны')
+                return render(request, 'home_page.html', {'show_news_status': True, 'status': 'новости собраны'})
 
-            else:
-                return HttpResponseBadRequest(request, content='диапазон сбора данных меньше 90 дней')
+            # else: #отключено на время разработки
+            #     return render(request, 'home_page.html', {'show_news_status': True, 'status': 'диапазон сбора данных меньше 90 дней'})
 
         else:
-            return HttpResponseBadRequest(request, content='неправильный формат даты')
+            return render(request, 'home_page.html', {'show_news_status': True, 'status': 'неправильный формат даты'})
 
 
 # def save_model(request):
