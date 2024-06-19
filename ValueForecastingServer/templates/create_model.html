@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{% csrf_token %}
+<input type="submit" formaction="/" value="Назад">
+
+
+{% if success == True %}
+<p>Метрики созданной модели:</p>
+{% csrf_token %}
+<table>
+    <tr>
+        <td>MSE= { mse }</td>
+        <td>MAE= { mae }</td>
+        <td>R^2= { r2 }</td>
+    </tr>
+</table>
+{% include 'forecast.html' %}
+
+<form method="POST" action="save_new_model/">
+    {% csrf_token %}
+    <input type="submit" value="Сохранить модель">
+</form>
+
+{% endif %}
+
+</body>
+</html>
