@@ -46,26 +46,26 @@ class Parser:
                     text = soup1.find_all('div', class_='article__text')
                     text += soup1.find_all('div', class_='article_block')
 
-                is_first = True
-                for one_part in text:
-                    if is_first:
-                        splitted_str = one_part.text.split('. ', 1)
-                        if len(splitted_str) > 1:
-                            full_text = splitted_str[1]
+                    is_first = True
+                    for one_part in text:
+                        if is_first:
+                            splitted_str = one_part.text.split('. ', 1)
+                            if len(splitted_str) > 1:
+                                full_text = splitted_str[1]
+                            else:
+                                full_text = splitted_str[0]
+                            is_first = False
                         else:
-                            full_text = splitted_str[0]
-                        is_first = False
-                    else:
-                        full_text += one_part.text
-                if full_text != '':
-                    output.append(full_text)
+                            full_text += one_part.text
+                    if full_text != '':
+                        output.append(full_text)
 
             report_string = date_day + ' ' + theme + ' page ' + str(page_number) + ': parsed'
         else:
             report_string = date_day + ' ' + theme + ' page ' + str(page_number) + ': page not found'
 
         print(report_string)
-        return output, response
+        return output, response, report_string
 
     @classmethod
     def parsing_daily_news(cls, date_day):
@@ -74,13 +74,13 @@ class Parser:
         page_number = 1
         text_list = []
         while response == 200:
-            news_text, response = cls.parse_single_page(theme='economy', date_day=date_day,
+            news_text, response, report_string = cls.parse_single_page(theme='economy', date_day=date_day,
                                                         page_number=page_number)
             if news_text:
                 text_list.append(news_text)
             page_number += 1
 
-        return text_list
+        return text_list, report_string
 
     @classmethod
     def parse_news(cls, start_date: str, end_date: str):
