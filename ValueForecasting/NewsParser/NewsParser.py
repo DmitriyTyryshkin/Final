@@ -60,11 +60,11 @@ class Parser:
                 if full_text != '':
                     output.append(full_text)
 
-            # report_string = date_day + ' ' + theme + ' page ' + str(page_number) + ': parsed'
-        # else:
-            # report_string = date_day + ' ' + theme + ' page ' + str(page_number) + ': page not found'
+            report_string = date_day + ' ' + theme + ' page ' + str(page_number) + ': parsed'
+        else:
+            report_string = date_day + ' ' + theme + ' page ' + str(page_number) + ': page not found'
 
-        # print(report_string)
+        print(report_string)
         return output, response
 
     @classmethod
