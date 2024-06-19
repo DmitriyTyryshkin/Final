@@ -106,7 +106,7 @@ class DatasetPreprocessing:
                                                                                                      look_back)
 
         # news = NewsPreprocessing.run_preprocessing(start_date, end_date)
-        os.chdir('../Storage/News data')
+        os.chdir('ValueForecasting/Storage')
         news_df = pd.read_json(news)
         weights_train_x, weights_test_x = cls.news_dataset(data, news_df, split_range, look_back)
 

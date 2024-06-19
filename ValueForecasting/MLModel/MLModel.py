@@ -115,7 +115,7 @@ class MLModel:
 
     @classmethod
     def save_new_model(cls):
-        os.chdir('../Storage')
+        os.chdir('ValueForecasting/Storage')
         Model.model.save(Model.name)
 
     @classmethod

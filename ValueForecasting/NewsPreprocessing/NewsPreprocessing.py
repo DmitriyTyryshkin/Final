@@ -44,7 +44,7 @@ class NewsPreprocessing:
 
     @classmethod
     def create_tone_dict(cls) -> dict:
-        os.chdir('../Storage')
+        os.chdir('ValueForecasting/Storage')
         tone_df = pd.read_csv('kartaslovsent.csv', sep=';')
 
         word_weight = []
@@ -120,7 +120,7 @@ class NewsPreprocessing:
         cls.news_sort(news_df)
         cls.slicer(news_df, 5)
         file_name = f'news_{start_date}_{end_date}_.json'
-        os.chdir('../Storage/News data')
+        os.chdir('ValueForecasting/Storage')
         news_df.to_json(file_name)
 
         return file_name #news_df
