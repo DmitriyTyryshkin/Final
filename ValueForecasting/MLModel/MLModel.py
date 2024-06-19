@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 import keras as keras
 import numpy as np
@@ -56,7 +57,8 @@ class MLModel:
         fig.add_trace(go.Scatter(x=data.index, y=test_predict_df['close'].values,
                                  mode='lines', name='test predict'))
 
-        os.chdir('../../ValueForecastingServer/templates')
+        # os.chdir('../../ValueForecastingServer/templates')
+        os.chdir(Path(os.path.dirname(__file__)).parent.parent.joinpath('ValueForecastingServer', 'templates'))
         fig.write_html('forecast.html')
 
     @classmethod
@@ -115,13 +117,13 @@ class MLModel:
 
     @classmethod
     def save_new_model(cls):
-        os.chdir('ValueForecasting/Storage')
+        os.chdir(Path(os.path.dirname(__file__)).parent.joinpath('Storage'))
         Model.model.save(Model.name)
 
     @classmethod
     def exist_model_forecast(cls, news, start_date: str, end_date: str, model_name: str = 'SBER_model_86.92',
                              look_back: int = 2, ticker_name: str = 'SBER'):
-        os.chdir('../Storage')
+        os.chdir(Path(os.path.dirname(__file__)).parent.joinpath('Storage'))
 
         model = tf.keras.models.load_model(model_name)
 

@@ -1,6 +1,7 @@
 import datetime
 import os
 import re
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -106,7 +107,7 @@ class DatasetPreprocessing:
                                                                                                      look_back)
 
         # news = NewsPreprocessing.run_preprocessing(start_date, end_date)
-        os.chdir('ValueForecasting/Storage')
+        os.chdir(Path(os.path.dirname(__file__)).parent.joinpath('Storage'))
         news_df = pd.read_json(news)
         weights_train_x, weights_test_x = cls.news_dataset(data, news_df, split_range, look_back)
 

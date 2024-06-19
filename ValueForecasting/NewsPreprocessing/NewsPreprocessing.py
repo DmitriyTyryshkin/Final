@@ -1,4 +1,6 @@
 import os
+from pathlib import Path
+
 import pandas as pd
 import pymorphy2 as pymorphy2
 import re
@@ -104,7 +106,7 @@ class NewsPreprocessing:
 
     @classmethod
     def run_preprocessing(cls, start_date: str, end_date: str):
-        os.chdir('ValueForecasting/Storage')
+        os.chdir(Path(os.path.dirname(__file__)).parent.joinpath('Storage'))
         print(os.path.join(os.path.dirname(__file__), os.pardir))
         news_df = Parser.parse_news(start_date, end_date)
 

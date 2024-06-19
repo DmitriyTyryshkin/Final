@@ -99,7 +99,7 @@ class Parser:
             news_df.loc[len(news_df.index)] = [date, daily_news]
             date += step
 
-        # os.chdir('../Storage')
+        # os.chdir(Path(os.path.dirname(__file__)).parent.joinpath('Storage'))
         # news_df.to_json('parsed_news_' + start_date.strftime(external_date_format) + '_' + end_date.strftime(
         #         external_date_format) + '.json')
 
