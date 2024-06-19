@@ -52,10 +52,6 @@ def get_news(request):
     if request.method == 'POST':
         start_date = request.POST.get('start_date')
         end_date = request.POST.get('end_date')
-        print('--------------------------')
-        print(start_date, type(start_date))
-        print(end_date, type(end_date))
-        print('--------------------------')
         if DatasetPreprocessing.check_string(start_date) and DatasetPreprocessing.check_string(end_date):
             # if DatasetPreprocessing.check_datediff(start_date, end_date): #отключено на время разработки
                 file_name = NewsPreprocessing.run_preprocessing(start_date, end_date)
