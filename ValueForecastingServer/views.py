@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpRespon
 from django.shortcuts import render
 
 from ValueForecastingServer.models import News_list
+from django.views.decorators.csrf import csrf_exempt
 
 
 def home_page(request):
@@ -46,7 +47,7 @@ def new_model(request):
 #         else:
 #             return HttpResponseBadRequest(request, content=ticker_e)
 
-
+@csrf_exempt
 def get_news(request):
     if request.method == 'POST':
         start_date = request.GET.get('start_date')
