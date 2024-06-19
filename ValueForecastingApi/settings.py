@@ -124,6 +124,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# CSRF_TRUSTED_ORIGINS = ['https://*.ngrok-free.app', 'http://127.0.0.1', 'https://*colab.research.google.com']
-
-
+CSRF_TRUSTED_ORIGINS = ['https://*.ngrok-free.app', 'http://127.0.0.1', 'http://*colab.research.google.com',
+                        'https://*colab.research.google.com']
