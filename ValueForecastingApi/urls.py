@@ -26,5 +26,5 @@ urlpatterns = [
     path("new_model/", views.new_model),
     path("get_news/", views.get_news),
     path("model_selection/", views.select_model),
-    # path("interval_selection/", views.select_interval),
+    path("interval_selection/", views.select_interval),
 ]
