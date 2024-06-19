@@ -125,4 +125,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSRF_TRUSTED_ORIGINS = ['https://*.ngrok-free.app', 'http://127.0.0.1', 'http://*.research.google.com',
-                        'https://*.research.google.com']
+                        'https://*.research.google.com', 'http://*.googleusercontent.com',
+                        'https://*.googleusercontent.com']
