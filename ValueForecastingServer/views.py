@@ -50,8 +50,8 @@ def new_model(request):
 @csrf_exempt
 def get_news(request):
     if request.method == 'POST':
-        start_date = request.GET.get('start_date')
-        end_date = request.GET.get('end_date')
+        start_date = request.get('start_date')
+        end_date = request.get('end_date')
         print('--------------------------')
         print(start_date, type(start_date))
         print(end_date, type(end_date))
