@@ -54,12 +54,10 @@
 {% if show_forecast == True %}
 <p>Метрики модели:</p>
 {% csrf_token %}
-<table>
-    <tr>
-        <td>MSE= {{mse}}</td>
-        <td>MAE= {{mae}}</td>
-        <td>R^2= {{r2}}</td>
-    </tr>
+<table border="1">
+    <tr>MSE= {{mse}}</tr>
+    <tr>MAE= {{mae}}</tr>
+    <tr>R^2= {{r2}}</tr>
 </table>
 {% include 'forecast.html' %}
 {% endif %}
