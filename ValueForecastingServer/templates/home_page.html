@@ -29,7 +29,7 @@
 <!--    <input type="submit" value="Создать модель">-->
 <!--</form>-->
 
-<form method="get" action="{% url 'model_selection' %}">
+<form method="get" action="{% url 'select_model' %}">
     {% csrf_token %}
     <h2>Список моделей:</h2>
     <select name="select_model">
@@ -46,7 +46,7 @@
 
 <p></p>
 
-<form method="GET" action="{% url 'get_demo_forecast' %}">
+<form method="GET" action="{% url 'demo_forecast' %}">
     {% csrf_token %}
     <input type="submit" value="Демонстрационный прогноз">
     {% if show_forecast == True %}
