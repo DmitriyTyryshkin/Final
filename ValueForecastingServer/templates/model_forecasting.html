@@ -18,6 +18,7 @@
     <select name="select_interval">
         {% for news in news_list %}
         <option value={{news.name}}>{{news.name}}</option>
+        {% endfor %}
     </select>
     <input type="submit" value="Выбрать">
     </form>
