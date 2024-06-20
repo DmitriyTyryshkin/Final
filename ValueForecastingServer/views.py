@@ -26,7 +26,8 @@ def demo_forecast(request):
 
 
 def new_model(request):
-    return render(request, 'create_model.html')
+    news = News_list.objects.all()
+    return render(request, 'create_model.html', {'news_list': news})
 
 
 def create_new_model(request):
