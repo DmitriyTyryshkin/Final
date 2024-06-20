@@ -77,7 +77,7 @@ class DatasetPreprocessing:
 
     @classmethod
     def news_dataset(cls, data, news, split_range: int, look_back: int):
-        news_for_data = news[news['date'].isin(data.date)]
+        news_for_data = news[news['date'].isin(data.index)]
         news_weights = news_for_data[['weights']]
         news_weights.index = news_for_data['date']
 
