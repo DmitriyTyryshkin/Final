@@ -54,17 +54,16 @@ def get_news(request):
         end_date = request.POST.get('end_date')
         if DatasetPreprocessing.check_string(start_date) and DatasetPreprocessing.check_string(end_date):
             # if DatasetPreprocessing.check_datediff(start_date, end_date): #отключено на время разработки
-                file_name = NewsPreprocessing.run_preprocessing(start_date, end_date)
-                news_list = News_list()
-                news_list.name = file_name
-                news_list.start_date = start_date
-                news_list.end_date = end_date
-                news_list.save()
-                print('=====================', f'{news_list.name}, {news_list.start_date}, {news_list.end_date}')
-                return render(request, 'home_page.html', {'show_news_status': True, 'status': 'новости собраны'})
+            file_name = NewsPreprocessing.run_preprocessing(start_date, end_date)
+            news_list = News_list()
+            news_list.name = file_name
+            news_list.start_date = start_date
+            news_list.end_date = end_date
+            news_list.save()
+            return render(request, 'home_page.html', {'show_news_status': True, 'status': 'новости собраны'})
 
-            # else: #отключено на время разработки
-            #     return render(request, 'home_page.html', {'show_news_status': True, 'status': 'диапазон сбора данных меньше 90 дней'})
+        # else: #отключено на время разработки
+        #     return render(request, 'home_page.html', {'show_news_status': True, 'status': 'диапазон сбора данных меньше 90 дней'})
 
         else:
             return render(request, 'home_page.html', {'show_news_status': True, 'status': 'неправильный формат даты'})
@@ -78,8 +77,9 @@ def get_news(request):
 
 def select_model(request):
     if request.method == 'GET':
-        print('-=-=-=-=-=-=-=-=-=-', f'{News_list.objects.all()}')
         model_name = request.GET.get("select_model")
+        News_list.objects.create(name='news_2023-03-01_2024-03-01_.json', start_date='2023-03-01',
+                                 end_date='2024-03-01')
         news = News_list.objects.all()
         return render(request, 'model_forecasting.html', {'model_name': model_name, 'news_list': news})
 
