@@ -6,10 +6,13 @@
 </head>
 <body>
 
-{% csrf_token %}
-<input type="submit" formaction="/" value="Назад">
+<form method="GET" action="/">
+    {% csrf_token %}
+    <input type="submit" value="Назад">
+</form>
 
 <form method="GET" action= "{% url 'create_new_model' %}">
+    {% csrf_token %}
     <h2>Тикер:</h2>
     <input type="text" name="ticker_name" value="{{ticker_name}}"/>
     {% if success == False %}
