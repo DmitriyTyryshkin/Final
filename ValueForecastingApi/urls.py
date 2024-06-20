@@ -26,5 +26,5 @@ urlpatterns = [
     path("new_model/", views.new_model, name='new_model'),
     path("get_news/", views.get_news, name='get_news'),
     # path("model_selection/", views.select_model, name='select_model'),
-    path("select_model_and_news/", views.select_interval, name='select_model_and_news'),
+    path("select_model_and_news/", views.select_model_and_news, name='select_model_and_news'),
 ]
