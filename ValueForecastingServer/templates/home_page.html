@@ -29,7 +29,7 @@
 <!--    <input type="submit" value="Создать модель">-->
 <!--</form>-->
 
-<form method="get" action="{% url 'select_model' %}">
+<form method="get" action="{% url 'select_model_and_news' %}">
     {% csrf_token %}
     <h2>Список моделей:</h2>
     <select name="select_model">
@@ -38,16 +38,37 @@
         <option value= model.name>{{ model.name }}</option>
         {% endfor %}
     </select>
+    <h2>Список собранных новостей:</h2>
+    <select name="select_interval">
+        <option value="news_2023-03-01_2024-03-01_.json">news_2023-03-01_2024-03-01_.json</option>
+        {% for news in news_list %}
+        <option value="{{news.name}}">{{news.name}}</option>
+        {% endfor %}
+    </select>
     <input type="submit" value="Выбрать">
     </form>
 
+<p></p>
+
+{% if show_forecast == True %}
+<p>Метрики модели:</p>
+{% csrf_token %}
+<table>
+    <tr>
+        <td>MSE= {{mse}}</td>
+        <td>MAE= {{mae}}</td>
+        <td>R^2= {{r2}}</td>
+    </tr>
+</table>
+{% include 'forecast.html' %}
+{% endif %}
 
 <p></p>
 
 <form method="GET" action="{% url 'demo_forecast' %}">
     {% csrf_token %}
     <input type="submit" value="Демонстрационный прогноз">
-    {% if show_forecast == True %}
+    {% if show_demo_forecast == True %}
     <input type="submit" formaction="/" value="Скрыть">
     {% include 'demo_forecast.html' %}
     {% endif %}

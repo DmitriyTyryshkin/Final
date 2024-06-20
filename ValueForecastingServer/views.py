@@ -11,15 +11,16 @@ from django.views.decorators.csrf import csrf_exempt
 
 def home_page(request):
     models = Models_list.objects.all()
+    news = News_list.objects.all()
     # for model in models:
     #     print(model.name)
     #     print(model.r2)
-    return render(request, 'home_page.html', {'models_list': models})
+    return render(request, 'home_page.html', {'models_list': models, 'news_list': news})
 
 
 def demo_forecast(request):
     if request.method == 'GET':
-        return render(request, 'home_page.html', {'show_forecast': True})
+        return render(request, 'home_page.html', {'show_demo_forecast': True})
 
 
 def new_model(request):
@@ -75,20 +76,20 @@ def get_news(request):
 #         return HttpResponseRedirect('/')
 
 
-def select_model(request):
+# def select_model(request):
+#     if request.method == 'GET':
+#         model_name = request.GET.get("select_model")
+#         news = News_list.objects.all()
+#         return render(request, 'model_forecasting.html', {'model_name': model_name, 'news_list': news})
+
+
+def select_model_and_news(request):
     if request.method == 'GET':
         model_name = request.GET.get("select_model")
-        news = News_list.objects.all()
-        return render(request, 'model_forecasting.html', {'model_name': model_name, 'news_list': news})
-
-
-def select_interval(request):
-    if request.method == 'GET':
-        # model_name = request.POST.get("model_name")
         news_name, model_name = request.GET.get("select_interval")
         ticker = model_name.split('_')[0]
         start_date = news_name.split('_')[1]
         end_date = news_name.split('_')[2]
         mse, mae, r2 = MLModel.exist_model_forecast(news=news_name, start_date=start_date, end_date=end_date,
                                                     model_name=model_name, ticker_name=ticker)
-        return render(request, 'model_forecasting.html', {'show_forecast': True, 'mse': mse, 'mae': mae, 'r2': r2})
+        return render(request, 'home_page.html', {'show_forecast': True, 'mse': mse, 'mae': mae, 'r2': r2})
