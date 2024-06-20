@@ -78,9 +78,9 @@ def get_news(request):
 
 def select_model(request):
     if request.method == 'GET':
+        print('-=-=-=-=-=-=-=-=-=-', f'{News_list.objects.all()}')
         model_name = request.GET.get("select_model")
         news = News_list.objects.all()
-        print('-=-=-=-=-=-=-=-=-=-', f'{news}')
         return render(request, 'model_forecasting.html', {'model_name': model_name, 'news_list': news})
 
 
