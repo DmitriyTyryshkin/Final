@@ -44,13 +44,14 @@
     </table>
     {% include 'forecast.html' %}
 
-<form method="GET" action="{% url 'save_new_model' %}">
-    {% csrf_token %}
-    <input type="submit" value="Сохранить модель">
-</form>
-    {% if show_news_status == True %}
+    <form method="GET" action="{% url 'save_new_model' %}">
+        {% csrf_token %}
+        <input type="submit" value="Сохранить модель">
+    </form>
+{% endif %}
+
+{% if show_news_status == True %}
     <p>{{status}}</p>
-    {% endif %}
 {% endif %}
 
 </body>
