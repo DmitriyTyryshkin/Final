@@ -80,7 +80,7 @@ def save_model(request):
         models_list.r2 = Model.r2
         models_list.save()
         MLModel.save_new_model()
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('')
 
 
 def select_model_and_news(request):

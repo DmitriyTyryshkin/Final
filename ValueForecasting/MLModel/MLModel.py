@@ -49,13 +49,17 @@ class MLModel:
 
     @classmethod
     def plotting_forecast(cls, data, train_predict_df, test_predict_df):
+        plot_df = pd.DataFrame()
+        plot_df['actual'] = data['close']
+        plot_df['trainPredict'] = train_predict_df['close'].values
+        plot_df['testPredict'] = test_predict_df['close'].values
         fig = go.Figure()
-        fig.add_trace(go.Scatter(x=data.index, y=data['close'],
-                                 mode='lines', name='actual'))
-        fig.add_trace(go.Scatter(x=data.index, y=train_predict_df['close'].values,
-                                 mode='lines', name='train predict'))
-        fig.add_trace(go.Scatter(x=data.index, y=test_predict_df['close'].values,
-                                 mode='lines', name='test predict'))
+        fig.add_trace(go.Scatter(x=plot_df.index, y=plot_df['actual'],
+                                 mode='lines', name='Реальные значения'))
+        fig.add_trace(go.Scatter(x=data.index, y=plot_df['trainPredict'].values,
+                                 mode='lines', name='Прогнозы обучающей выборки'))
+        fig.add_trace(go.Scatter(x=data.index, y=plot_df['testPredict'].values,
+                                 mode='lines', name='Прогнозы тестовой выборки'))
 
         # os.chdir('../../ValueForecastingServer/templates')
         os.chdir(Path(os.path.dirname(__file__)).parent.parent.joinpath('ValueForecastingServer', 'templates'))
@@ -63,9 +67,6 @@ class MLModel:
 
     @classmethod
     def new_model_forecast(cls, news, start_date: str, end_date: str, look_back: int = 2, ticker_name: str = 'SBER'):
-        '''
-        не доделано
-        '''
 
         data_train_x, data_train_y, data_test_x, data_test_y, scaler, scaled_data, weights_train_x, weights_test_x = \
             DatasetPreprocessing.dataset_generator(news, start_date, end_date, look_back, ticker_name)
