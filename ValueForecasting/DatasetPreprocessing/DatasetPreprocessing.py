@@ -107,7 +107,7 @@ class DatasetPreprocessing:
                                                                                                      look_back)
 
         # news = NewsPreprocessing.run_preprocessing(start_date, end_date)
-        os.chdir(Path(os.path.dirname(__file__)).parent.joinpath('Storage'))
+        os.chdir(Path(os.path.dirname(__file__)).parent.joinpath('Storage', 'News data'))
         news_df = pd.read_json(news)
         weights_train_x, weights_test_x = cls.news_dataset(data, news_df, split_range, look_back)
 
