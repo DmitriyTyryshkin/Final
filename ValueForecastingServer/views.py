@@ -72,7 +72,7 @@ def get_news(request):
 
 
 def save_model(request):
-    if request.method == 'GET':
+    if request.method == 'POST':
         models_list = Models_list()
         models_list.name = Model.name
         models_list.mse = Model.mse
