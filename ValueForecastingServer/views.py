@@ -47,7 +47,7 @@ def new_model(request):
 #         else:
 #             return HttpResponseBadRequest(request, content=ticker_e)
 
-# @csrf_exempt
+@csrf_exempt
 def get_news(request):
     if request.method == 'POST':
         start_date = request.POST.get('start_date')
