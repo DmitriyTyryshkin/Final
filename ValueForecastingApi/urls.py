@@ -22,9 +22,9 @@ from ValueForecastingServer import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", views.home_page),
-    path("get_demo_forecast/", views.demo_forecast),
-    path("new_model/", views.new_model),
-    path("get_news/", views.get_news),
-    path("model_selection/", views.select_model),
-    path("interval_selection/", views.select_interval),
+    path("get_demo_forecast/", views.demo_forecast, name='demo_forecast'),
+    path("new_model/", views.new_model, name='new_model'),
+    path("get_news/", views.get_news, name='get_news'),
+    path("model_selection/", views.select_model, name='select_model'),
+    path("interval_selection/", views.select_interval, name='select_interval'),
 ]
