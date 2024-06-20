@@ -78,8 +78,6 @@ def get_news(request):
 def select_model(request):
     if request.method == 'GET':
         model_name = request.GET.get("select_model")
-        News_list.objects.create(name='news_2023-03-01_2024-03-01_.json', start_date='2023-03-01',
-                                 end_date='2024-03-01')
         news = News_list.objects.all()
         return render(request, 'model_forecasting.html', {'model_name': model_name, 'news_list': news})
 

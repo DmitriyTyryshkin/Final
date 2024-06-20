@@ -19,6 +19,7 @@
     {% csrf_token %}
     <h2>Список собранных новостей:</h2>
     <select name="select_interval">
+        <option value="news_2023-03-01_2024-03-01_.json">news_2023-03-01_2024-03-01_.json</option>
         {% for news in news_list %}
         <option value={{news.name}}>{{news.name}}</option>
         {% endfor %}
