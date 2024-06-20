@@ -1,28 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Model creator</title>
 </head>
 <body>
 
 {% csrf_token %}
 <input type="submit" formaction="/" value="Назад">
 
+<form method="POST" action= "{% url 'create_new_model' %}">
+    <h2>Тикер:</h2>
+    <input type="text" name="ticker_name"/>
+    <h2>Список собранных новостей:</h2>
+    <select name="select_interval">
+        <option value="news_2023-03-01_2024-03-01_.json">news_2023-03-01_2024-03-01_.json</option>
+        {% for news in news_list %}
+        <option value="{{news.name}}">{{news.name}}</option>
+        {% endfor %}
+    </select>
+    <p></p>
+    <input type="submit" value="Создать модель">
+    <p></p>
+    <input type="submit" formaction="{% url 'retrain_model' %}" value="Переобучить">
+</form>
+
+{% if success == False %}
+<p>{{status}}</p>
+{% endif %}
 
 {% if success == True %}
-<p>Метрики созданной модели:</p>
-{% csrf_token %}
-<table>
-    <tr>
-        <td>MSE= { mse }</td>
-        <td>MAE= { mae }</td>
-        <td>R^2= { r2 }</td>
-    </tr>
-</table>
-{% include 'forecast.html' %}
+<form method="POST" action="{% url 'retrain_model' %}">
+    <p>Метрики созданной модели:</p>
+    {% csrf_token %}
+    <table border="1">
+        <tr>
+            <th>MSE</th>
+            <th>MAE</th>
+            <th>R^2</th>
+        </tr>
+        <tr><td>{{mse}}</td><td>{{mae}}</td><td>{{r2}}</td></tr>
+    </table>
+    {% include 'forecast.html' %}
+</form>
 
-<form method="POST" action="save_new_model/">
+<form method="POST" action="{% url 'save_new_model' %}">
     {% csrf_token %}
     <input type="submit" value="Сохранить модель">
 </form>

@@ -8,6 +8,8 @@ from django.shortcuts import render
 from ValueForecastingServer.models import News_list
 from django.views.decorators.csrf import csrf_exempt
 
+from ValueForecasting.MLModel.schemas import Model
+
 
 def home_page(request):
     models = Models_list.objects.all()
@@ -27,26 +29,26 @@ def new_model(request):
     return render(request, 'create_model.html')
 
 
-# def create_new_model(request):
-#     if request.method == 'POST':
-#         ticker = request.POST.get('ticker')
-#         start_date = request.POST.get('start_date')
-#         end_date = request.POST.get('end_date')
-#         ticker_ok, ticker_e = DatasetPreprocessing.ticker_check(ticker)
-#         if ticker_ok:
-#             if DatasetPreprocessing.check_string(start_date) and DatasetPreprocessing.check_string(end_date):
-#                 if DatasetPreprocessing.check_datediff(start_date, end_date):
-#                     MLModel.new_model_forecast(start_date=start_date, end_date=end_date, ticker_name=ticker)
-#                     return render(request, 'create_model.html', {'success': True, 'mse': Model.mse, 'mae': Model.mae,
-#                                                                  'r2': Model.r2})
-#                 else:
-#                     return HttpResponseBadRequest(request, content='диапазон сбора данных меньше 90 дней')
-#
-#             else:
-#                 return HttpResponseBadRequest(request, content='неправильный формат даты')
-#
-#         else:
-#             return HttpResponseBadRequest(request, content=ticker_e)
+def create_new_model(request):
+    if request.method == 'POST':
+        ticker = request.POST.get('ticker_name')
+        news_name = request.GET.get("select_interval")
+        start_date = news_name.split('_')[1]
+        end_date = news_name.split('_')[2]
+        ticker_ok, ticker_e = DatasetPreprocessing.ticker_check(ticker)
+        if ticker_ok:
+
+            MLModel.new_model_forecast(start_date=start_date, end_date=end_date, ticker_name=ticker)
+            return render(request, 'create_model.html', {'success': True, 'mse': Model.mse, 'mae': Model.mae,
+                                                         'r2': Model.r2})
+        else:
+            return render(request, 'create_model.html', {'success': False, 'status': ticker_e})
+            # HttpResponseBadRequest(request, content=ticker_e)
+
+
+def retrain_model(request):
+    pass
+
 
 @csrf_exempt
 def get_news(request):
@@ -54,33 +56,28 @@ def get_news(request):
         start_date = request.POST.get('start_date')
         end_date = request.POST.get('end_date')
         if DatasetPreprocessing.check_string(start_date) and DatasetPreprocessing.check_string(end_date):
-            # if DatasetPreprocessing.check_datediff(start_date, end_date): #отключено на время разработки
-            file_name = NewsPreprocessing.run_preprocessing(start_date, end_date)
-            news_list = News_list()
-            news_list.name = file_name
-            news_list.start_date = start_date
-            news_list.end_date = end_date
-            news_list.save()
-            return render(request, 'home_page.html', {'show_news_status': True, 'status': 'новости собраны'})
+            # if DatasetPreprocessing.check_datediff(start_date, end_date):
 
-        # else: #отключено на время разработки
-        #     return render(request, 'home_page.html', {'show_news_status': True, 'status': 'диапазон сбора данных меньше 90 дней'})
+                file_name = NewsPreprocessing.run_preprocessing(start_date, end_date)
+                news_list = News_list()
+                news_list.name = file_name
+                news_list.start_date = start_date
+                news_list.end_date = end_date
+                news_list.save()
+                return render(request, 'home_page.html', {'show_news_status': True, 'status': 'новости собраны'})
+
+            # else:
+            #     return render(request, 'home_page.html', {'show_news_status': True,
+            #                                               'status': 'диапазон сбора данных меньше 90 дней'})
 
         else:
             return render(request, 'home_page.html', {'show_news_status': True, 'status': 'неправильный формат даты'})
 
 
-# def save_model(request):
-#     if request.method == 'POST':
-#         MLModel.save_new_model()
-#         return HttpResponseRedirect('/')
-
-
-# def select_model(request):
-#     if request.method == 'GET':
-#         model_name = request.GET.get("select_model")
-#         news = News_list.objects.all()
-#         return render(request, 'model_forecasting.html', {'model_name': model_name, 'news_list': news})
+def save_model(request):
+    if request.method == 'POST':
+        MLModel.save_new_model()
+        return HttpResponseRedirect('/')
 
 
 def select_model_and_news(request):

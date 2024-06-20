@@ -8,6 +8,7 @@
 
 <form method="POST" action="{% url 'get_news' %}">
     {% csrf_token %}
+    <h2>Сбор новостей:</h2>
     <p>Введите диапазон сбора даннх в формате гггг-мм-дд. минимальный диапазон— 90 дней</p>
     <input type="text" name="start_date"/><input type="text" name="end_date"/>
     <input type="submit" value="Cобрать новости">
@@ -16,15 +17,12 @@
     <input type="submit" formmethod="get" formaction="/"  value="Ok">
     {% endif %}
 </form>
-<!--<form method="GET" action="/">-->
-<!--    {% if show_news_status == True %}-->
-<!--    <p>{{status}}</p>-->
-<!--    <input type="submit" value="Ok">-->
-<!--    {% endif %}-->
-<!--</form>-->
 
+<form method="get" action="{% url 'new_model' %}">
+    <input type="submit" value="Создать новую модель">
+</form>
 
-<!--<form method="POST" action="new_model/">-->
+<!--<form method="POST" action="{% url 'new_model' %}">-->
 <!--    {% csrf_token %}-->
 <!--    <input type="submit" value="Создать модель">-->
 <!--</form>-->

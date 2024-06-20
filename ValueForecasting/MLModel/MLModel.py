@@ -44,7 +44,7 @@ class MLModel:
         inverse_test_y = scaler.inverse_transform(test_y)
         mse = round(mean_squared_error(y_true=inverse_test_y, y_pred=test_predict), 5)
         mae = round(mean_absolute_error(y_true=inverse_test_y, y_pred=test_predict), 5)
-        r2 = round(r2_score(y_true=inverse_test_y, y_pred=test_predict) * 100, 2)
+        r2 = round(r2_score(y_true=inverse_test_y, y_pred=test_predict), 5)
         return mse, mae, r2
 
     @classmethod
@@ -114,6 +114,37 @@ class MLModel:
         Model.r2 = r2
 
         # return mse, mae, r2
+
+    @classmethod
+    def retrain_model(cls, news, start_date: str, end_date: str, look_back: int = 2, ticker_name: str = 'SBER'):
+
+        data_train_x, data_train_y, data_test_x, data_test_y, scaler, scaled_data, weights_train_x, weights_test_x = \
+            DatasetPreprocessing.dataset_generator(news, start_date, end_date, look_back, ticker_name)
+
+        model = Model.model
+
+        model.fit({'data_inputs': data_train_x, 'news_inputs': weights_train_x},
+                  data_train_y,
+                  epochs=20,
+                  verbose=2)
+
+        _, test_predict, _, _, train_predict_df, test_predict_df = cls.prepare_output(model, data_train_x,
+                                                                                      data_test_x, scaler, scaled_data,
+                                                                                      weights_train_x, weights_test_x,
+                                                                                      look_back)
+
+        data = DatasetPreprocessing.data_gathering(start_date, end_date, ticker_name)
+
+        mse, mae, r2 = cls.calculate_metrics(scaler, data_test_y, test_predict)
+
+        cls.plotting_forecast(data, train_predict_df, test_predict_df)
+
+        Model.model = model
+        Model.name = f"{ticker_name}_model_{r2}"
+        Model.mse = mse
+        Model.mae = mae
+        Model.r2 = r2
+
 
     @classmethod
     def save_new_model(cls):
