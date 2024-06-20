@@ -11,11 +11,14 @@
     <p>Введите диапазон сбора даннх в формате гггг-мм-дд. минимальный диапазон— 90 дней</p>
     <input type="text" name="start_date"/><input type="text" name="end_date"/>
     <input type="submit" value="Cобрать новости">
+</form>
+<form method="GET" action="/">
     {% if show_news_status == True %}
     <p>{{status}}</p>
-    <input type="submit" formaction="/" value="Ok">
+    <input type="submit" value="Ok">
     {% endif %}
 </form>
+
 
 
 
