@@ -60,6 +60,7 @@ def get_news(request):
                 news_list.start_date = start_date
                 news_list.end_date = end_date
                 news_list.save()
+                print('=====================', f'{news_list.name}, {news_list.start_date}, {news_list.end_date}')
                 return render(request, 'home_page.html', {'show_news_status': True, 'status': 'новости собраны'})
 
             # else: #отключено на время разработки
@@ -79,6 +80,7 @@ def select_model(request):
     if request.method == 'GET':
         model_name = request.GET.get("select_model")
         news = News_list.objects.all()
+        print('-=-=-=-=-=-=-=-=-=-', f'{news}')
         return render(request, 'model_forecasting.html', {'model_name': model_name, 'news_list': news})
 
 
