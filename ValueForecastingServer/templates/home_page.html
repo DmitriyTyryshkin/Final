@@ -7,6 +7,7 @@
 <body>
 
 <form method="POST" action="get_news/">
+    {% csrf_token %}
     <p>Введите диапазон сбора даннх в формате гггг-мм-дд. минимальный диапазон— 90 дней</p>
     <input type="text" name="start_date"/><input type="text" name="end_date"/>
     <input type="submit" value="Cобрать новости">
