@@ -54,6 +54,7 @@
 {% if show_forecast == True %}
 <p>Метрики модели:</p>
 {% csrf_token %}
+<input type="submit" formaction="/" value="Скрыть">
 <table border="1">
     <tr>MSE= {{mse}}</tr>
     <tr>MAE= {{mae}}</tr>
