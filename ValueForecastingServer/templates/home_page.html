@@ -29,7 +29,7 @@
 <!--    <input type="submit" value="Создать модель">-->
 <!--</form>-->
 
-<form method="POST" action="model_selection/">
+<form method="get" action="model_selection/">
     {% csrf_token %}
     <h2>Список моделей:</h2>
     <select name="select_model">
