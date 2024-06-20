@@ -53,7 +53,7 @@ class DatasetPreprocessing:
         ticker = Ticker(ticker_name)
         data = ticker.candles(start=start_date, end=end_date, period='1d')
         data = data.rename(columns={'begin': 'date'})
-        data.index = data['date']
+        data.index = data['date'].values
         data = data[['close']]
         return data
 
