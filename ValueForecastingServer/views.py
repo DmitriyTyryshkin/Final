@@ -84,7 +84,7 @@ def select_model(request):
 
 def select_interval(request):
     if request.method == 'GET':
-        model_name = request.POST.get("model_name")
+        model_name = request.GET.get("model_name")
         ticker = model_name.split('_')[0]
         news_name = request.GET.get("select_interval")
         start_date = news_name.split('_')[1]
