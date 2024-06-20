@@ -9,7 +9,7 @@
 {% csrf_token %}
 <input type="submit" formaction="/" value="Назад">
 
-<form method="POST" action= "{% url 'create_new_model' %}">
+<form method="GET" action= "{% url 'create_new_model' %}">
     <h2>Тикер:</h2>
     <input type="text" name="ticker_name"/>
     <h2>Список собранных новостей:</h2>

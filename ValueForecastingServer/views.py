@@ -31,8 +31,8 @@ def new_model(request):
 
 
 def create_new_model(request):
-    if request.method == 'POST':
-        ticker = request.POST.get('ticker_name')
+    if request.method == 'GET':
+        ticker = request.GET.get('ticker_name')
         news_name = request.GET.get("select_interval")
         start_date = news_name.split('_')[1]
         end_date = news_name.split('_')[2]
