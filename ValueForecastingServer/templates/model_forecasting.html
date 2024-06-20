@@ -6,8 +6,11 @@
 </head>
 <body>
 
-{% csrf_token %}
-<p><input type="submit" formaction="/" value="Назад"></p>
+<form method="get" action="/">
+    {% csrf_token %}
+    <p><input type="submit" value="Назад"></p>
+</form>
+
 
 <p><input type="text" name="model_name" value={{model_name}} readonly></p>
 
