@@ -55,10 +55,14 @@
 <p>Метрики модели:</p>
 {% csrf_token %}
 <input type="submit" formaction="/" value="Скрыть">
+<p></p>
 <table border="1">
-    <tr>MSE= {{mse}}</tr>
-    <tr>MAE= {{mae}}</tr>
-    <tr>R^2= {{r2}}</tr>
+    <tr>
+        <th>MSE</th>
+        <th>MAE</th>
+        <th>R^2</th>
+    </tr>
+    <tr><td>{{mse}}</td><td>{{mae}}</td><td>{{r2}}</td></tr>
 </table>
 {% include 'forecast.html' %}
 {% endif %}
