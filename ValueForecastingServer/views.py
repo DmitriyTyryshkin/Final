@@ -1,5 +1,5 @@
 from ValueForecasting.DatasetPreprocessing.DatasetPreprocessing import DatasetPreprocessing
-# from ValueForecasting.MLModel.MLModel import MLModel
+from ValueForecasting.MLModel.MLModel import MLModel
 from ValueForecasting.NewsPreprocessing.NewsPreprocessing import NewsPreprocessing
 from ValueForecastingServer.models import Models_list
 from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpResponse
