@@ -122,8 +122,8 @@ class NewsPreprocessing:
         news_df['weights'] = weights
         cls.news_sort(news_df)
         cls.slicer(news_df, 5)
-        file_name = f'News data/news_{start_date}_{end_date}_.json'
+        file_name = f'news_{start_date}_{end_date}_.json'
 
-        news_df.to_json(file_name)
+        news_df.to_json('News data/' + file_name)
 
         return file_name #news_df
