@@ -76,7 +76,7 @@ def get_news(request):
 
 
 def save_model(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
         MLModel.save_new_model()
         return HttpResponseRedirect('/')
 
