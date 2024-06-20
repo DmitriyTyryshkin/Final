@@ -86,7 +86,7 @@ def get_news(request):
 def select_model_and_news(request):
     if request.method == 'GET':
         model_name = request.GET.get("select_model")
-        news_name, model_name = request.GET.get("select_interval")
+        news_name = request.GET.get("select_interval")
         ticker = model_name.split('_')[0]
         start_date = news_name.split('_')[1]
         end_date = news_name.split('_')[2]
