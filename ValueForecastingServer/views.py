@@ -77,10 +77,10 @@ def get_news(request):
 def save_model(request):
     if request.method == 'GET':
         models_list = Models_list()
-        models_list.name = MLModel.name
-        models_list.mse = MLModel.mse
-        models_list.mae = MLModel.mae
-        models_list.r2 = MLModel.r2
+        models_list.name = Model.name
+        models_list.mse = Model.mse
+        models_list.mae = Model.mae
+        models_list.r2 = Model.r2
         models_list.save()
         MLModel.save_new_model()
         return HttpResponseRedirect('/')
