@@ -72,7 +72,7 @@ def get_news(request):
 
 
 def save_model(request):
-    if request.method == 'POST':
+    if request.method == 'GET':
         models_list = Models_list()
         models_list.name = Model.name
         models_list.mse = Model.mse
@@ -80,10 +80,7 @@ def save_model(request):
         models_list.r2 = Model.r2
         models_list.save()
         MLModel.save_new_model()
-        # return render(request, 'home_page.html')
-        # return HttpResponsePermanentRedirect(reverse('home'))
-        return redirect('home')
-        # home_page(request)
+        return render(request, 'create_model.html', {'show_save_status': True, 'status': 'Модель сохранена '})
 
 
 def select_model_and_news(request):
