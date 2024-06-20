@@ -152,7 +152,7 @@ class MLModel:
         Model.model.save(Model.name)
 
     @classmethod
-    def exist_model_forecast(cls, news, start_date: str, end_date: str, model_name: str = 'SBER_model_86.92',
+    def exist_model_forecast(cls, news, start_date: str, end_date: str, model_name: str = 'SBER_model_0.8692',
                              look_back: int = 2, ticker_name: str = 'SBER'):
         os.chdir(Path(os.path.dirname(__file__)).parent.joinpath('Storage'))
 

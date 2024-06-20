@@ -32,7 +32,7 @@
     {% csrf_token %}
     <h2>Список моделей:</h2>
     <select name="select_model">
-        <option value="SBER_model_86.92">SBER_model_86.92</option>
+        <option value="SBER_model_0.8692">SBER_model_86.92</option>
         {% for model in models_list %}
         <option value= model.name>{{ model.name }}</option>
         {% endfor %}
