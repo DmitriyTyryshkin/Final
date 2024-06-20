@@ -53,16 +53,13 @@ class DatasetPreprocessing:
         ticker = Ticker(ticker_name)
         data = ticker.candles(start=start_date, end=end_date, period='1d')
         data = data.rename(columns={'begin': 'date'})
-        data.index = data['date'].values
+        data.index = data['date']
         data = data[['close']]
         return data
 
     @classmethod
     def data_dataset(cls, data, split_range: int, look_back: int):
         data_copy = data.copy()
-
-        data_copy.index = data_copy['date']
-        data_copy = data_copy[['close']]
 
         scaler = MinMaxScaler()
         scaled_data = scaler.fit_transform(data_copy.values.reshape(-1, 1))
