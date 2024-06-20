@@ -15,7 +15,7 @@
 <p><input type="text" name="model_name" value={{model_name}} readonly></p>
 
 
-<form method="POST" action="{% url 'interval_selection/' %}">
+<form method="POST" action="{% url 'interval_selection' %}">
     {% csrf_token %}
     <h2>Список собранных новостей:</h2>
     <select name="select_interval">
