@@ -21,7 +21,7 @@ from ValueForecastingServer import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", views.home_page),
+    path("", views.home_page, name='home'),
     path("get_demo_forecast/", views.demo_forecast, name='demo_forecast'),
     path("create_new_model/", views.create_new_model, name='create_new_model'),
     # path("retrain_model/", views.retrain_model, name='retrain_model'),
