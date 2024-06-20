@@ -11,7 +11,7 @@
 
 <form method="GET" action= "{% url 'create_new_model' %}">
     <h2>Тикер:</h2>
-    <input type="text" name="ticker_name"/>
+    <input type="text" name="ticker_name" value="{{}}"/>
     {% if success == False %}
     <p>{{status}}</p>
     {% endif %}
@@ -24,8 +24,6 @@
     </select>
     <p></p>
     <input type="submit" value="Создать модель">
-    <p></p>
-    <input type="submit" formaction="{% url 'retrain_model' %}" value="Переобучить">
 </form>
 
 <p></p>

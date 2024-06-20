@@ -40,14 +40,11 @@ def create_new_model(request):
 
             MLModel.new_model_forecast(news=news_name, start_date=start_date, end_date=end_date, ticker_name=ticker)
             return render(request, 'create_model.html', {'success': True, 'mse': Model.mse, 'mae': Model.mae,
-                                                         'r2': Model.r2})
+                                                         'r2': Model.r2, 'ticker_name': ticker})
         else:
-            return render(request, 'create_model.html', {'success': False, 'status': ticker_e})
+            return render(request, 'create_model.html', {'success': False, 'status': ticker_e, 'ticker_name': ticker})
             # HttpResponseBadRequest(request, content=ticker_e)
 
-
-def retrain_model(request):
-    pass
 
 
 @csrf_exempt
