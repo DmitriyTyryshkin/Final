@@ -52,8 +52,11 @@
 
 {% if show_forecast == True %}
 <p>Метрики модели:</p>
-{% csrf_token %}
-<input type="submit" formaction="/" value="Скрыть">
+<form method="GET" action="/">
+    {% csrf_token %}
+    <input type="submit" value="Скрыть">
+</form>
+
 <p></p>
 <table border="1">
     <tr>
