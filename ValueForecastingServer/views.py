@@ -4,7 +4,7 @@ from ValueForecasting.NewsPreprocessing.NewsPreprocessing import NewsPreprocessi
 from ValueForecastingServer.models import Models_list, News_list
 from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpResponse, HttpResponsePermanentRedirect
 from django.shortcuts import render
-
+from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 
 from ValueForecasting.MLModel.schemas import Model
@@ -80,7 +80,7 @@ def save_model(request):
         models_list.r2 = Model.r2
         models_list.save()
         MLModel.save_new_model()
-        return HttpResponse('/')
+        return HttpResponsePermanentRedirect(reverse('/'))
         # home_page(request)
 
 
