@@ -80,7 +80,8 @@ def save_model(request):
         models_list.r2 = Model.r2
         models_list.save()
         MLModel.save_new_model()
-        return HttpResponsePermanentRedirect('/')
+        # return HttpResponsePermanentRedirect('/')
+        home_page(request)
 
 
 def select_model_and_news(request):

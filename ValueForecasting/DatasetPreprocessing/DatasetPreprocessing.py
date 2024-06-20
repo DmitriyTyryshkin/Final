@@ -52,8 +52,9 @@ class DatasetPreprocessing:
     def data_gathering(cls, start_date: str, end_date: str, ticker_name: str):
         ticker = Ticker(ticker_name)
         data = ticker.candles(start=start_date, end=end_date, period='1d')
-        data = data.drop(['open', 'high', 'low', 'value', 'volume', 'end'], axis=1)
         data = data.rename(columns={'begin': 'date'})
+        data.index = data['date']
+        data = data[['close']]
         return data
 
     @classmethod
