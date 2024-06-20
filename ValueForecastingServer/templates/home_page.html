@@ -34,7 +34,7 @@
     <select name="select_model">
         <option value="SBER_model_0.8692">SBER_model_0.8692</option>
         {% for model in models_list %}
-        <option value= model.name>{{ model.name }}</option>
+        <option value= "{{ model.name }}">{{ model.name }}</option>
         {% endfor %}
     </select>
     <h2>Список собранных новостей:</h2>
