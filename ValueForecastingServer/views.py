@@ -84,9 +84,9 @@ def select_model(request):
 
 def select_interval(request):
     if request.method == 'GET':
-        model_name = request.POST.get("model_name")
+        # model_name = request.POST.get("model_name")
+        news_name, model_name = request.GET.get("select_interval")
         ticker = model_name.split('_')[0]
-        news_name = request.GET.get("select_interval")
         start_date = news_name.split('_')[1]
         end_date = news_name.split('_')[2]
         mse, mae, r2 = MLModel.exist_model_forecast(news=news_name, start_date=start_date, end_date=end_date,
