@@ -90,6 +90,7 @@ def select_model_and_news(request):
         ticker = model_name.split('_')[0]
         start_date = news_name.split('_')[1]
         end_date = news_name.split('_')[2]
+        print('=============================================', model_name)
         mse, mae, r2 = MLModel.exist_model_forecast(news=news_name, start_date=start_date, end_date=end_date,
                                                     model_name=model_name, ticker_name=ticker)
         return render(request, 'home_page.html', {'show_forecast': True, 'mse': mse, 'mae': mae, 'r2': r2})
