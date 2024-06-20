@@ -39,7 +39,7 @@ def create_new_model(request):
         ticker_ok, ticker_e = DatasetPreprocessing.ticker_check(ticker)
         if ticker_ok:
 
-            MLModel.new_model_forecast(start_date=start_date, end_date=end_date, ticker_name=ticker)
+            MLModel.new_model_forecast(news=news_name, start_date=start_date, end_date=end_date, ticker_name=ticker)
             return render(request, 'create_model.html', {'success': True, 'mse': Model.mse, 'mae': Model.mae,
                                                          'r2': Model.r2})
         else:
