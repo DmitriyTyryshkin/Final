@@ -81,12 +81,14 @@ class MLModel:
         data_inputs = keras.Input(shape=(1, look_back), name='data_inputs')
         data_branch = layers.LSTM(2 ** 7, activation="selu", return_sequences=True, name='data_branch_1')(data_inputs)
         data_branch = layers.LSTM(2 ** 7, activation="selu", name='data_branch_2')(data_branch)
-        data_outputs = layers.Dropout(0.2)(data_branch)
+        data_branch = layers.Dropout(0.2)(data_branch)
+        data_outputs = layers.Dense(1, activation="selu", name='data_outputs')(data_branch)
 
         news_inputs = keras.Input(shape=(5, look_back), name='news_inputs')
         news_branch = layers.LSTM(2 ** 8, activation="selu", return_sequences=True, name='news_branch_1')(news_inputs)
         news_branch = layers.LSTM(2 ** 8, activation="selu", name='news_branch_2')(news_branch)
-        news_outputs = layers.Dropout(0.2)(news_branch)
+        news_branch = layers.Dropout(0.2)(news_branch)
+        news_outputs = layers.Dense(1, activation="selu", name='news_outputs')(news_branch)
 
         merge = layers.concatenate([data_outputs, news_outputs], name='merge')
         data_news = layers.Dense((2 ** 7) + (2 ** 8), activation="selu", name='data_news')(merge)
