@@ -65,7 +65,7 @@ class Parser:
             report_string = date_day + ' ' + theme + ' page ' + str(page_number) + ': page not found'
 
         print(report_string)
-        return output, response, report_string
+        return output, response
 
     @classmethod
     def parsing_daily_news(cls, date_day):
@@ -74,13 +74,13 @@ class Parser:
         page_number = 1
         text_list = []
         while response == 200:
-            news_text, response, report_string = cls.parse_single_page(theme='economy', date_day=date_day,
+            news_text, response = cls.parse_single_page(theme='economy', date_day=date_day,
                                                         page_number=page_number)
             if news_text:
                 text_list.append(news_text)
             page_number += 1
 
-        return text_list, report_string
+        return text_list
 
     @classmethod
     def parse_news(cls, start_date: str, end_date: str):
@@ -98,9 +98,5 @@ class Parser:
             daily_news = cls.parsing_daily_news(date.strftime(date_format))
             news_df.loc[len(news_df.index)] = [date, daily_news]
             date += step
-
-        # os.chdir(Path(os.path.dirname(__file__)).parent.joinpath('Storage'))
-        # news_df.to_json('parsed_news_' + start_date.strftime(external_date_format) + '_' + end_date.strftime(
-        #         external_date_format) + '.json')
 
         return news_df
