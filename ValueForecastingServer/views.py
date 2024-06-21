@@ -1,21 +1,15 @@
 from ValueForecasting.DatasetPreprocessing.DatasetPreprocessing import DatasetPreprocessing
 from ValueForecasting.MLModel.MLModel import MLModel
+from ValueForecasting.MLModel.schemas import Model
 from ValueForecasting.NewsPreprocessing.NewsPreprocessing import NewsPreprocessing
 from ValueForecastingServer.models import Models_list, News_list
-from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpResponse, HttpResponsePermanentRedirect
-from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-
-from ValueForecasting.MLModel.schemas import Model
 
 
 def home_page(request):
     models = Models_list.objects.all()
     news = News_list.objects.all()
-    # for model in models:
-    #     print(model.name)
-    #     print(model.r2)
     return render(request, 'home_page.html', {'models_list': models, 'news_list': news})
 
 
@@ -43,7 +37,6 @@ def create_new_model(request):
                                                          'r2': Model.r2, 'ticker_name': ticker})
         else:
             return render(request, 'create_model.html', {'success': False, 'status': ticker_e, 'ticker_name': ticker})
-            # HttpResponseBadRequest(request, content=ticker_e)
 
 
 
@@ -53,7 +46,7 @@ def get_news(request):
         start_date = request.POST.get('start_date')
         end_date = request.POST.get('end_date')
         if DatasetPreprocessing.check_string(start_date) and DatasetPreprocessing.check_string(end_date):
-            # if DatasetPreprocessing.check_datediff(start_date, end_date):
+            # if DatasetPreprocessing.check_datediff(start_date, end_date): #отключено на время демонстрации
 
                 file_name = NewsPreprocessing.run_preprocessing(start_date, end_date)
                 news_list = News_list()
@@ -63,7 +56,7 @@ def get_news(request):
                 news_list.save()
                 return render(request, 'home_page.html', {'show_news_status': True, 'status': 'новости собраны'})
 
-            # else:
+            # else:  #отключено на время демонстрации
             #     return render(request, 'home_page.html', {'show_news_status': True,
             #                                               'status': 'диапазон сбора данных меньше 90 дней'})
 

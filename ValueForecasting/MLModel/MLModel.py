@@ -33,9 +33,7 @@ class MLModel:
         test_predict_plot[-test_predict.shape[0]:len(scaled_data), :] = test_predict
 
         train_predict_df = pd.DataFrame(train_predict_plot, columns=['close'])
-        # train_predict_df.drop(index=train_predict_df.index[0], axis= 0 , inplace= True )
         test_predict_df = pd.DataFrame(test_predict_plot, columns=['close'])
-        # test_predict_df.drop(index=test_predict_df.index[0], axis= 0 , inplace= True )
 
         return train_predict, test_predict, train_predict_plot, test_predict_plot, train_predict_df, test_predict_df
 
@@ -57,24 +55,11 @@ class MLModel:
         fig.add_trace(go.Scatter(x=data.index, y=test_predict_df['close'].values,
                                  mode='lines', name='test predict'))
 
-        # os.chdir('../../ValueForecastingServer/templates')
         os.chdir(Path(os.path.dirname(__file__)).parent.parent.joinpath('ValueForecastingServer', 'templates'))
         fig.write_html('forecast.html')
-        # plot_df = pd.DataFrame()
-        # plot_df['actual'] = data['close']
-        # plot_df['trainPredict'] = train_predict_df['close'].values
-        # plot_df['testPredict'] = test_predict_df['close'].values
-        # fig = go.Figure()
-        # fig.add_trace(go.Scatter(x=plot_df.index, y=plot_df['actual'],
-        #                          mode='lines', name='Реальные значения'))
-        # fig.add_trace(go.Scatter(x=data.index, y=plot_df['trainPredict'].values,
-        #                          mode='lines', name='Прогнозы обучающей выборки'))
-        # fig.add_trace(go.Scatter(x=data.index, y=plot_df['testPredict'].values,
-        #                          mode='lines', name='Прогнозы тестовой выборки'))
 
     @classmethod
     def new_model_forecast(cls, news, start_date: str, end_date: str, look_back: int = 2, ticker_name: str = 'SBER'):
-
         data_train_x, data_train_y, data_test_x, data_test_y, scaler, scaled_data, weights_train_x, weights_test_x = \
             DatasetPreprocessing.dataset_generator(news, start_date, end_date, look_back, ticker_name)
 
@@ -122,39 +107,6 @@ class MLModel:
         Model.mse = mse
         Model.mae = mae
         Model.r2 = r2
-
-        # return mse, mae, r2
-
-    # @classmethod
-    # def retrain_model(cls, news, start_date: str, end_date: str, look_back: int = 2, ticker_name: str = 'SBER'):
-    #
-    #     data_train_x, data_train_y, data_test_x, data_test_y, scaler, scaled_data, weights_train_x, weights_test_x = \
-    #         DatasetPreprocessing.dataset_generator(news, start_date, end_date, look_back, ticker_name)
-    #
-    #     model = Model.model
-    #
-    #     model.fit({'data_inputs': data_train_x, 'news_inputs': weights_train_x},
-    #               data_train_y,
-    #               epochs=20,
-    #               verbose=2)
-    #
-    #     _, test_predict, _, _, train_predict_df, test_predict_df = cls.prepare_output(model, data_train_x,
-    #                                                                                   data_test_x, scaler, scaled_data,
-    #                                                                                   weights_train_x, weights_test_x,
-    #                                                                                   look_back)
-    #
-    #     data = DatasetPreprocessing.data_gathering(start_date, end_date, ticker_name)
-    #
-    #     mse, mae, r2 = cls.calculate_metrics(scaler, data_test_y, test_predict)
-    #
-    #     cls.plotting_forecast(data, train_predict_df, test_predict_df)
-    #
-    #     Model.model = model
-    #     Model.name = f"{ticker_name}_model_{r2}"
-    #     Model.mse = mse
-    #     Model.mae = mae
-    #     Model.r2 = r2
-
 
     @classmethod
     def save_new_model(cls):

@@ -1,6 +1,5 @@
 import os
 from pathlib import Path
-
 import pandas as pd
 import pymorphy2 as pymorphy2
 import re
@@ -9,7 +8,6 @@ from ValueForecasting.NewsParser.NewsParser import Parser
 
 class NewsPreprocessing:
     morph = pymorphy2.MorphAnalyzer()
-
 
     @classmethod
     def restrucurize(cls, old_list):
@@ -126,4 +124,4 @@ class NewsPreprocessing:
 
         news_df.to_json('News data/' + file_name)
 
-        return file_name #news_df
+        return file_name  # news_df

@@ -2,7 +2,6 @@ import datetime
 import os
 import re
 from pathlib import Path
-
 import numpy as np
 import pandas as pd
 from moexalgo import Ticker
@@ -90,13 +89,12 @@ class DatasetPreprocessing:
         weights_test_x, weights_test_y = cls.create_dataset(weights_test, look_back)
 
         weights_train_x = np.reshape(weights_train_x, (weights_train_x.shape[0], 5, weights_train_x.shape[1]))
-        # 2й параметр 5 так как в функцию NewsPreprocessing.slicer передается параметр 5
         weights_test_x = np.reshape(weights_test_x, (weights_test_x.shape[0], 5, weights_test_x.shape[1]))
 
         return weights_train_x, weights_test_x
 
     @classmethod
-    def dataset_generator(cls, news, start_date: str, end_date: str, look_back: int, ticker_name: str = 'SBER',
+    def dataset_generator(cls, news, start_date: str, end_date: str, look_back: int, ticker_name: str,
                           split_range: int = 7 * 4):
 
         data = cls.data_gathering(start_date, end_date, ticker_name)
@@ -104,7 +102,6 @@ class DatasetPreprocessing:
         data_train_x, data_train_y, data_test_x, data_test_y, scaler, scaled_data = cls.data_dataset(data, split_range,
                                                                                                      look_back)
 
-        # news = NewsPreprocessing.run_preprocessing(start_date, end_date)
         os.chdir(Path(os.path.dirname(__file__)).parent.joinpath('Storage', 'News data'))
         news_df = pd.read_json(news)
         weights_train_x, weights_test_x = cls.news_dataset(data, news_df, split_range, look_back)
